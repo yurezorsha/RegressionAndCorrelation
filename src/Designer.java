@@ -25,7 +25,7 @@ import javax.swing.border.LineBorder;
 
 import org.jfree.ui.RefineryUtilities;
 
-public class Designer extends JFrame{
+public class Designer extends JFrame {
 
 	private JFrame frame;
 	private JTable table;
@@ -54,13 +54,13 @@ public class Designer extends JFrame{
 	private ArrayList<String> names;
 	private ArrayList<String> values;
 	private ArrayList<Double> arry_solve;
-	private JLabel Labela,LabelAutor2;
+	private JLabel Labela, LabelAutor2;
 	private JLabel Labelb, LabelAutor;
 	private DoubleEditor tie;
 
 	public Designer() throws IOException {
 		xy = new XY();
-		
+
 		p = new ParseCSV();
 		p.parseStud();
 		model = new ModelTable(xy);
@@ -90,22 +90,20 @@ public class Designer extends JFrame{
 		panel.setLayout(null);
 
 		table = new JTable();
-	
+
 		table.setBounds(91, 32, 108, 320);
 		panel.add(table);
-		table.setVisible(false);		
-		
-		
-		DefaultCellEditor editor = (DefaultCellEditor)table.getDefaultEditor(Double.class);
-        JComponent border = (JComponent)editor.getComponent();
-        border.setBorder( BorderFactory.createLineBorder(Color.red));
-		
+		table.setVisible(false);
+
+		DefaultCellEditor editor = (DefaultCellEditor) table.getDefaultEditor(Double.class);
+		JComponent border = (JComponent) editor.getComponent();
+		border.setBorder(BorderFactory.createLineBorder(Color.red));
+
 		js = new JScrollPane(table);
 		js.setVisible(false);
 		js.setBounds(10, 11, 164, 343);
-       
+
 		panel.add(js);
-      
 
 		Label2 = new JLabel("Выберите функцию:");
 		Label2.setBounds(184, 21, 170, 14);
@@ -138,7 +136,8 @@ public class Designer extends JFrame{
 		panel.add(Button1);
 
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"y = a + b * x", "y = a * exp(b * x)\t\t", "y = b * ln(x) + a"}));
+		comboBox.setModel(new DefaultComboBoxModel(
+				new String[] { "y = a + b * x", "y = a * exp(b * x)\t\t", "y = b * ln(x) + a" }));
 		comboBox.setSelectedIndex(0);
 		comboBox.setVisible(false);
 		comboBox.setBounds(184, 46, 386, 20);
@@ -154,7 +153,7 @@ public class Designer extends JFrame{
 				Button3.setEnabled(true);
 				addTableResult(names, values);
 				table_1.setVisible(true);
-				Labela.setText(xy.checkResultA(Double.valueOf(ta), Double.valueOf(tc)));				
+				Labela.setText(xy.checkResultA(Double.valueOf(ta), Double.valueOf(tc)));
 				Labelb.setText(xy.checkResultB(Double.valueOf(tb), Double.valueOf(tc)));
 			}
 		});
@@ -193,8 +192,8 @@ public class Designer extends JFrame{
 				// xy.setY(arry_solve);
 				xy.setY_solve(arry_solve);
 				table.setModel(new ModelTable(xy));
-				table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1,1000));
-				table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1,1000));	
+				table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1));
+				table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1));
 			}
 		});
 		Button2.setBounds(184, 331, 386, 23);
@@ -243,8 +242,8 @@ public class Designer extends JFrame{
 		// getColumnModel().getColumn(1).setWidth(150);
 		lblNewLabel = new JLabel("Sa");
 		LabelAutor2 = new JLabel("                      ");
-		LabelAutor = new JLabel("Марчук | Осиновский");
-		
+		LabelAutor = new JLabel("");
+
 		JMenuBar bar = new JMenuBar();
 		JButton open = new JButton("Открыть файл");
 		open.addActionListener(new ActionListener() {///////////////// OPEN
@@ -253,10 +252,10 @@ public class Designer extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					open();
-					
+
 					table.setModel(new ModelTable(xy));
-					table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1,1000));
-					table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1,1000));					
+					table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1));
+					table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1));
 					table.setVisible(true);
 
 				} catch (IOException e) {
@@ -288,8 +287,8 @@ public class Designer extends JFrame{
 				System.out.print(num);
 				xy = new XY(num);
 				table.setModel(new ModelTable(xy));
-				table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1,1000));
-				table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1,1000));					
+				table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1));
+				table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1));
 				table.setVisible(true);
 				Button1.setEnabled(false);
 				Button2.setEnabled(false);
@@ -335,12 +334,12 @@ public class Designer extends JFrame{
 
 	public void open() throws IOException {
 		try {
-			fileChooser.setDialogTitle("Открыть");			
+			fileChooser.setDialogTitle("Открыть");
 			String extension = "";
 			FileFilterMain eff = new FileFilterMain(FILTERS[0], FILTERS[1]);
 			fileChooser.addChoosableFileFilter(eff);
 			int result = fileChooser.showOpenDialog(Designer.this);
-			
+
 			if (result == JFileChooser.APPROVE_OPTION) {
 				file = fileChooser.getSelectedFile();
 				extension = getFileExtension(file);
@@ -357,8 +356,9 @@ public class Designer extends JFrame{
 					throw new Exception();
 				}
 			}
-		} catch (Exception e) {			
-			JOptionPane.showMessageDialog(new JFrame(), "Выберите файл с расширением .csv!!!", "Ошибка", JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(new JFrame(), "Выберите файл с расширением .csv!!!", "Ошибка",
+					JOptionPane.ERROR_MESSAGE);
 			open();
 		}
 	}
@@ -441,8 +441,8 @@ public class Designer extends JFrame{
 			break;
 		}
 		table.setModel(new ModelTable(xy));
-		table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1,1000));
-		table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1,1000));	
+		table.getColumnModel().getColumn(0).setCellEditor(new DoubleEditor(1));
+		table.getColumnModel().getColumn(1).setCellEditor(new DoubleEditor(1));
 		table_1.setModel(new ModelTableResult(names, values));
 		setSizeCol();
 	}
@@ -473,34 +473,34 @@ public class Designer extends JFrame{
 	public void addTableResult(ArrayList<String> names, ArrayList<String> values) {
 		names.clear();
 		values.clear();
-		names.add("коэффициент корреляции (r)");
+		names.add("Коэффициент корреляции (r)");
 		values.add(cor);
-		names.add("коэффициент детерминации (R2)");
-		values.add(det);
-		names.add("коэффициент А (a)");
-		values.add(a);
-		names.add("коэффициент B (b)");
-		values.add(b);
-		names.add("стандартное отклонение случайной величины a (Sa)");
-		values.add(sa);
-		names.add("стандартное отклонение случайной величины b (Sb)");
-		values.add(sb);
-		names.add("коэффициента регрессии a (t_a)");
-		values.add(ta);
-		names.add("коэффициента регрессии b (t_b)");
-		values.add(tb);
-		names.add("табличное значение t-критерия (t_c)");
-		values.add(tc);
-		names.add("наблюдаемое значение критерия (t_nabl)");
+		names.add("Значимость коэффициента корреляции (tr)");
 		values.add(tnabl);
+		names.add("Табличное значение критерия Стьюдента (tc)");
+		values.add(tc);
+		names.add("Коэффициент регрессии (a)");
+		values.add(a);
+		names.add("Стандартное отклонение случайной величины a (Sa)");
+		values.add(sa);
+		names.add("Значимость коэффициента регрессии a (ta)");
+		values.add(ta);
+		names.add("Коэффициент регрессии (b)");
+		values.add(b);
+		names.add("Стандартное отклонение случайной величины b (Sb)");
+		values.add(sb);
+		names.add("Значимость коэффициента регрессии a b (tb)");
+		values.add(tb);
+		names.add("Коэффициент детерминации (R2)");
+		values.add(det);
+
 	}
-	
+
 	public double validTable(JTable table) {
 		int rowIndex = table.getSelectedRow();
 		int colIndex = table.getSelectedColumn();
-		Double value =(Double) table.getValueAt(rowIndex, colIndex);
+		Double value = (Double) table.getValueAt(rowIndex, colIndex);
 		return value;
 	}
-	
 
 }

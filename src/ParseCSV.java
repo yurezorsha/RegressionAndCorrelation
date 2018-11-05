@@ -6,6 +6,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -44,16 +47,26 @@ public class ParseCSV {
 
      	 list_x.clear();
      	 list_y.clear();
+     	 int i=0;
      	 
+     	 
+     	try{
          for (CSVRecord csvRecord : csvParser) {
+        	 
+        		 if(i>99)  throw new Exception();
              // Accessing values by the names assigned to each column
              String x = csvRecord.get(0);
              String y = csvRecord.get(1);
              list_x.add(Double.valueOf(x));
              list_y.add(Double.valueOf(y));
-             
-        
-          }
+                i++;
+        	 }
+          
+	 }
+	catch(Exception e){
+		 JOptionPane.showMessageDialog(new JFrame(), "Количество точек в файле превышает 100, будет выведено первых 100.", "Ошибка", JOptionPane.ERROR_MESSAGE);
+	 }
+   
          
            xy.setX(list_x);
            xy.setY(list_y);

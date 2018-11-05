@@ -26,7 +26,7 @@ public class DoubleEditor extends DefaultCellEditor
         private Double minimum, maximum;
         private boolean DEBUG = false;
 
-        public DoubleEditor(double min, double max)
+        public DoubleEditor(double min)
         {
             super(new JFormattedTextField());
 
@@ -35,14 +35,14 @@ public class DoubleEditor extends DefaultCellEditor
             ftf = (JFormattedTextField)getComponent();
             ftf.setBorder(new LineBorder(Color.BLACK));
             minimum = new Double(min);
-            maximum = new Double(max);
+            //maximum = new Double(max);
 
             
             doubleFormat = NumberFormat.getInstance();
             NumberFormatter intFormatter = new NumberFormatter(doubleFormat);
             intFormatter.setFormat(doubleFormat);
             intFormatter.setMinimum(minimum);
-            intFormatter.setMaximum(maximum);
+            //intFormatter.setMaximum(maximum);
 
             ftf.setFormatterFactory(new DefaultFormatterFactory(intFormatter));
             ftf.setValue(minimum);
@@ -156,9 +156,8 @@ public class DoubleEditor extends DefaultCellEditor
                                         "Отменить"};
              int answer = JOptionPane.showOptionDialog(
                   SwingUtilities.getWindowAncestor(ftf),
-                  "Значение может быть только между "
-                  + minimum + " и "
-                  + maximum + ".\n"
+                  "Значение может быть только больше 0"                  
+                  +  ".\n"
                   + "Вы можете изменить значение "
                   + "или вернуть предыдущее значение",
                   "Ошибка ввода",
